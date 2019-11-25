@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Garage App</title>
+  <link rel="stylesheet" href="control.css">
+  <script src="./resources/particle/particle.min.js"></script>
+</head>
+
+<body>
+	<!-- Login Page -->
+    <div class="container" id="loginPage" hidden>
+    	<h1>Login</h1>
+	    Username
+	    <input type="text" class="userIn" placeholder="Enter Username" name="uname" required>
+
+	    Password
+	    <input type="password" class="userIn" placeholder="Enter Password" name="psw" required>
+
+	    <label>
+	      <input type="checkbox" name="remember"> Remember me
+	    </label>
+
+    	<button type="submit" id="loginButton">Login</button>
+    	<button type="submit" id="createAccountButton">Create an account here</button>
+
+	</div>
+
+	<!-- Create account page -->
+    <div class="container" id="createAccountPage" hidden>
+    	<h1>Create Account</h1>
+	    Username
+	    <input type="text" class="userIn" placeholder="Enter Username" name="uname" required>
+
+	    Password
+	    <input type="password" class="userIn" placeholder="Enter Password" name="psw" required>
+
+	    Retype Password
+	    <input type="password" class="userIn" placeholder="Enter Password" name="psw" required>
+
+    	<button type="submit">Submit</button>
+    	<button type="submit" id="backButton">Back</button>
+	</div>
+
+	<!-- Door and Light Control -->
+	<div id="allControls">
+		<h1>Control</h1>
+		<!-- Log out button -->
+	    <div class="col-container">
+	    	<button type="submit" id="logOutButton">Logout</button>
+	    </div>
+
+	    <!-- Door Status Label -->
+		<p>
+			<strong>Door Status:</strong> <span id="doorStatus"></span> <br>
+		</p>
+
+		<!-- Button to open/close the door -->
+	    <div class="col-container">
+	    	<button type="submit" id="doorButton">Door</button>
+	    </div>
+
+	 
+	</div>
+
+	<script src="./doorbellApp.js"></script>
+  	<script src="./doorbell.js"></script>
+
+</body>
+</html>
