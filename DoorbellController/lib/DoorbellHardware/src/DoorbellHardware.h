@@ -11,4 +11,8 @@ boolean isButtonPressed();
 
 void startMotorClosing();
 
+void lockDoor();
+
+void unlockDoor();
+
 #endif

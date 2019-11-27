@@ -9,40 +9,6 @@
 </head>
 
 <body>
-	<!-- Login Page -->
-    <div class="container" id="loginPage" hidden>
-    	<h1>Login</h1>
-	    Username
-	    <input type="text" class="userIn" placeholder="Enter Username" name="uname" required>
-
-	    Password
-	    <input type="password" class="userIn" placeholder="Enter Password" name="psw" required>
-
-	    <label>
-	      <input type="checkbox" name="remember"> Remember me
-	    </label>
-
-    	<button type="submit" id="loginButton">Login</button>
-    	<button type="submit" id="createAccountButton">Create an account here</button>
-
-	</div>
-
-	<!-- Create account page -->
-    <div class="container" id="createAccountPage" hidden>
-    	<h1>Create Account</h1>
-	    Username
-	    <input type="text" class="userIn" placeholder="Enter Username" name="uname" required>
-
-	    Password
-	    <input type="password" class="userIn" placeholder="Enter Password" name="psw" required>
-
-	    Retype Password
-	    <input type="password" class="userIn" placeholder="Enter Password" name="psw" required>
-
-    	<button type="submit">Submit</button>
-    	<button type="submit" id="backButton">Back</button>
-	</div>
-
 	<!-- Door and Light Control -->
 	<div id="allControls">
 		<h1>Control</h1>
@@ -56,12 +22,21 @@
 			<strong>Door Status:</strong> <span id="doorStatus"></span> <br>
 		</p>
 
+    <p>
+			<strong>Lock Status:</strong> <span id="lockStatus"></span> <br>
+		</p>
+
 		<!-- Button to open/close the door -->
 	    <div class="col-container">
 	    	<button type="submit" id="doorButton">Door</button>
 	    </div>
 
-	 
+    <!-- Button to lock/unlock the door -->
+	    <div class="col-container">
+	    	<button type="submit" id="lockButton">Lock</button>
+	    </div>
+
+
 	</div>
 
 	<script src="./doorbellApp.js"></script>

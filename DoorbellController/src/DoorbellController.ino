@@ -8,14 +8,29 @@ enum doorStatus {
 };
 doorStatus doorState;
 bool isUIClicked = false;             //whether the user click the door button in the UI
-
+bool isLocked = true;                 //lock state
 
 //set UIClicked to true if the user click the door button in the UI
 int doorButtonPress(String nothing) {
-    isUIClicked = true;
-    return 0;
+  isUIClicked = true;
+  return 0;
 }
 
+//toggle lock
+int lockButtonPress(String nothing) {
+  if (isLocked) {
+    unlockDoor();
+  } else {
+    lockDoor();
+  }
+  isLocked = !isLocked;
+  shouldPublish = true;
+  return 0;
+}
+
+//publish data to cloud:
+// +/ doorState
+// +/ isLocked
 int publishState(String nothing) {
   String data = "{\"doorState\":";
 
@@ -24,6 +39,13 @@ int publishState(String nothing) {
   }
   else if (doorState == CLOSED) {
       data += "\"Closed\"";
+  }
+  data += ", ";
+  data += "\"isLocked\":";
+  if (isLocked) {
+      data += "true";
+  } else {
+      data += "false";
   }
   data += "}";
 
@@ -35,11 +57,12 @@ int publishState(String nothing) {
 
 void setup() {
   setupHardware();
-  //get the initial state of the door
+  //set initial state of door
   doorState = CLOSED;
 
   Particle.function("publishState", publishState);
   Particle.function("doorButtonPress", doorButtonPress);
+  Particle.function("lockButtonPress", lockButtonPress);
 }
 
 //variables for debounce
@@ -48,9 +71,10 @@ const unsigned long debounceDelay = 100;
 bool lastState = false;
 bool alreadyDone = false;
 
+
 void loop() {
   unsigned long currentMillis = millis();
-  bool isPressed = isButtonPressed();
+  bool isPressedDoor = isButtonPressed();
 
   if (shouldPublish) {
     publishState("");
@@ -59,17 +83,16 @@ void loop() {
 
   switch (doorState) {
     case OPEN:
-      if (isPressed && lastPressTime + debounceDelay <= currentMillis && !alreadyDone) {
+      if (isPressedDoor && lastPressTime + debounceDelay <= currentMillis && !alreadyDone) {
         alreadyDone = true;
-        shouldPublish = true;
       }
 
-      else if (!isPressed && lastState) {
+      else if (!isPressedDoor && lastState) {
         lastState = false;
         alreadyDone = false;
       }
 
-      else if(isPressed && !lastState) {
+      else if(isPressedDoor && !lastState) {
         lastState = true;
         lastPressTime = currentMillis;
       }
@@ -84,18 +107,17 @@ void loop() {
       break;
 
     case CLOSED:
-      if (isPressed && lastPressTime + debounceDelay <= currentMillis && !alreadyDone) {
+      if (isPressedDoor  && lastPressTime + debounceDelay <= currentMillis && !alreadyDone) {
         alreadyDone = true;
-        shouldPublish = true;
         Particle.publish("Notification", "Ringing", 60, PRIVATE);
       }
 
-      else if (!isPressed && lastState) {
+      else if (!isPressedDoor  && lastState) {
         lastState = false;
         alreadyDone = false;
       }
 
-      else if(isPressed && !lastState) {
+      else if(isPressedDoor  && !lastState) {
         lastState = true;
         lastPressTime = currentMillis;
       }
