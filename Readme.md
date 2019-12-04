@@ -11,3 +11,7 @@ HTML,CSS and JS codes for the actual UI of the app. Also uses cloud functions in
 ***2. DoorbellHardware***
 
 C++ and ino files of embedded system.
+
+***3. documentation***
+
+Guide for developers and users
