@@ -23,3 +23,7 @@
 
 - Whenever any state/information is updated, `publishState` is called to publish the door's state, updating both the UI and hardware accordingly.
 
+- There are 2 states of the door (closed and open). Hitting the door button will switch the state accordingly
+
+- The UI will get the state of the door to display appropriately. If the door is open, the lock button is disabled. If the door is locked, the door button is disabled.
+
